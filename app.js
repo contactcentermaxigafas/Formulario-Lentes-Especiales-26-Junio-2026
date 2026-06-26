@@ -53,7 +53,7 @@ function validateStep(stepIndex) {
         const diagnosticos = currentFormStep.querySelectorAll('input[name="diagnostico"]:checked');
         if (diagnosticos.length === 0) {
             isValid = false;
-            alert('Por favor, selecciona al menos un diagnóstico especial.');
+            alert('Por favor, selecciona al menos una condición especial.');
         }
 
         const correccion = currentFormStep.querySelector('input[name="correccion"]:checked');
@@ -124,6 +124,11 @@ form.addEventListener('submit', e => {
         mode: 'no-cors'
     })
     .then(() => {
+        // Enviar evento de conversión a Meta Pixel
+        if (typeof fbq === 'function') {
+            fbq('track', 'Lead');
+        }
+
         mostrarModal();
         form.reset();
         currentStep = 0;
