@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valoración Lentes Especializados</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="logo.jpg" alt="Maxi Gafas Logo" class="logo">
+            <h1>Descubre si eres candidato para lentes de contacto especializados.</h1>
+            <p class="subtitle">Completa tus datos para registrarte.</p>
+        </header>
+
+        <!-- Indicador de progreso -->
+        <div class="progress-bar">
+            <div class="progress-step active" data-step="1">1</div>
+            <div class="progress-step" data-step="2">2</div>
+            <div class="progress-step" data-step="3">3</div>
+        </div>
+
+        <form id="registroForm">
+            <!-- Paso 1 (Antes Paso 2) -->
+            <div class="form-step active" id="step1">
+                <!-- 1. Diagnóstico especial -->
+                <div class="form-group">
+                    <label>¿Has sido diagnosticado con algún diagnóstico especial? (Puedes seleccionar más de 1 opción)</label>
+                    <div class="checkbox-group">
+                        <label class="custom-checkbox">
+                            <input type="checkbox" name="diagnostico" value="Miopía Alta">
+                            <span class="checkmark"></span> Miopía Alta
+                        </label>
+                        <label class="custom-checkbox">
+                            <input type="checkbox" name="diagnostico" value="Astigmatismo Alto">
+                            <span class="checkmark"></span> Astigmatismo Alto
+                        </label>
+                        <label class="custom-checkbox">
+                            <input type="checkbox" name="diagnostico" value="Hipermetropía Alta">
+                            <span class="checkmark"></span> Hipermetropía Alta
+                        </label>
+                        <label class="custom-checkbox">
+                            <input type="checkbox" name="diagnostico" value="Ojo seco severo">
+                            <span class="checkmark"></span> Ojo seco severo
+                        </label>
+                        <label class="custom-checkbox">
+                            <input type="checkbox" name="diagnostico" value="Queratocono">
+                            <span class="checkmark"></span> Queratocono
+                        </label>
+                    </div>
+                </div>
+
+                <!-- 2. Corrección actual -->
+                <div class="form-group">
+                    <label>¿Cómo corriges actualmente tu visión?</label>
+                    <div class="radio-group">
+                        <label class="custom-radio">
+                            <input type="radio" name="correccion" value="Gafas" required>
+                            <span class="radiomark"></span> Gafas
+                        </label>
+                        <label class="custom-radio">
+                            <input type="radio" name="correccion" value="Lentes de contacto">
+                            <span class="radiomark"></span> Lentes de contacto
+                        </label>
+                        <label class="custom-radio">
+                            <input type="radio" name="correccion" value="No uso ninguna corrección">
+                            <span class="radiomark"></span> No uso ninguna corrección
+                        </label>
+                        <label class="custom-radio">
+                            <input type="radio" name="correccion" value="Me operé anteriormente">
+                            <span class="radiomark"></span> Me operé anteriormente
+                        </label>
+                    </div>
+                </div>
+
+                <div class="btn-group right">
+                    <button type="button" class="btn-next">Siguiente ➔</button>
+                </div>
+            </div>
+
+            <!-- Paso 2 (Antes Paso 3) -->
+            <div class="form-step" id="step2">
+                <!-- 3. Tiempo -->
+                <div class="form-group">
+                    <label>¿En cuánto tiempo te gustaría probar esta solución?</label>
+                    <div class="radio-group">
+                        <label class="custom-radio">
+                            <input type="radio" name="tiempo" value="Esta misma semana" required>
+                            <span class="radiomark"></span> Esta misma semana
+                        </label>
+                        <label class="custom-radio">
+                            <input type="radio" name="tiempo" value="Durante este mes">
+                            <span class="radiomark"></span> Durante este mes
+                        </label>
+                        <label class="custom-radio">
+                            <input type="radio" name="tiempo" value="En los próximos tres meses">
+                            <span class="radiomark"></span> En los próximos tres meses
+                        </label>
+                        <label class="custom-radio">
+                            <input type="radio" name="tiempo" value="Solo estoy investigando opciones">
+                            <span class="radiomark"></span> Solo estoy investigando opciones
+                        </label>
+                    </div>
+                </div>
+
+                <!-- 4. Expectativa -->
+                <div class="form-group">
+                    <label>¿Qué esperas lograr con esta valoración?</label>
+                    <div class="radio-group">
+                        <label class="custom-radio">
+                            <input type="radio" name="expectativa" value="Mejorar mi visión porque la corrección actual ya no funciona" required>
+                            <span class="radiomark"></span> Mejorar mi visión porque la corrección actual ya no funciona
+                        </label>
+                        <label class="custom-radio">
+                            <input type="radio" name="expectativa" value="Saber si soy candidato para lentes especializados">
+                            <span class="radiomark"></span> Saber si soy candidato para lentes especializados
+                        </label>
+                        <label class="custom-radio">
+                            <input type="radio" name="expectativa" value="Conocer otras alternativas antes de una cirugía">
+                            <span class="radiomark"></span> Conocer otras alternativas antes de una cirugía
+                        </label>
+                        <label class="custom-radio">
+                            <input type="radio" name="expectativa" value="Solo quiero conocer los precios">
+                            <span class="radiomark"></span> Solo quiero conocer los precios
+                        </label>
+                    </div>
+                </div>
+
+                <div class="btn-group split">
+                    <button type="button" class="btn-prev btn-secondary">🡠 Anterior</button>
+                    <button type="button" class="btn-next">Siguiente ➔</button>
+                </div>
+            </div>
+
+            <!-- Paso 3 (Antes Paso 1) -->
+            <div class="form-step" id="step3">
+                <!-- 5. Nombre y apellido -->
+                <div class="form-group">
+                    <label for="nombre">Nombre y apellido</label>
+                    <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre completo">
+                </div>
+
+                <!-- 6. Celular -->
+                <div class="form-group">
+                    <label for="celular">Celular (Número de WhatsApp)</label>
+                    <input type="tel" id="celular" name="celular" required placeholder="Ej. +57 300 000 0000">
+                </div>
+
+                <div class="btn-group split">
+                    <button type="button" class="btn-prev btn-secondary">🡠 Anterior</button>
+                    <button type="submit" id="submitBtn">
+                        <span class="btn-text">Enviar datos</span>
+                        <span class="loader" style="display: none;"></span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Modal (Ventana Emergente) -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <div class="success-icon">✓</div>
+            <h2>¡Datos enviados!</h2>
+            <p>En unos minutos estaremos en contacto contigo.</p>
+            <button class="close-btn" onclick="closeModal()">Cerrar</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,423 @@
+:root {
+    --primary-blue: #1A4B82;
+    --secondary-blue: #2974C4;
+    --light-blue: #EAF2FA;
+    --white: #FFFFFF;
+    --text-dark: #333333;
+    --text-muted: #666666;
+    --border-color: #D1E1F0;
+    --error-color: #E74C3C;
+    --success-color: #2ECC71;
+    --bg-color: #F8F9FA;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Outfit', sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-dark);
+    line-height: 1.6;
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+    min-height: 100vh;
+}
+
+.container {
+    background-color: var(--white);
+    max-width: 600px;
+    width: 100%;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(26, 75, 130, 0.08);
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    background: linear-gradient(90deg, var(--primary-blue), var(--secondary-blue));
+}
+
+header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.logo {
+    max-width: 180px;
+    height: auto;
+    margin-bottom: 25px;
+}
+
+h1 {
+    color: var(--primary-blue);
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    line-height: 1.3;
+}
+
+.subtitle {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+}
+
+/* Progress Bar */
+.progress-bar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    position: relative;
+    padding: 0 20px;
+}
+
+.progress-bar::before {
+    content: '';
+    background-color: var(--border-color);
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    right: 20px;
+    transform: translateY(-50%);
+    height: 3px;
+    z-index: 1;
+}
+
+.progress-step {
+    width: 35px;
+    height: 35px;
+    background-color: var(--white);
+    border: 3px solid var(--border-color);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    color: var(--text-muted);
+    z-index: 2;
+    transition: all 0.3s ease;
+}
+
+.progress-step.active {
+    border-color: var(--primary-blue);
+    background-color: var(--primary-blue);
+    color: var(--white);
+    box-shadow: 0 0 10px rgba(26, 75, 130, 0.2);
+}
+
+/* Form Steps */
+.form-step {
+    display: none;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+.form-step.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--primary-blue);
+    font-size: 1rem;
+}
+
+input[type="text"],
+input[type="tel"] {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background-color: var(--white);
+    color: var(--text-dark);
+}
+
+input[type="text"]:focus,
+input[type="tel"]:focus {
+    border-color: var(--secondary-blue);
+    outline: none;
+    box-shadow: 0 0 0 4px var(--light-blue);
+}
+
+input::placeholder {
+    color: #A0B2C3;
+}
+
+.checkbox-group, .radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.custom-checkbox, .custom-radio {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-left: 35px;
+    cursor: pointer;
+    font-weight: 400;
+    color: var(--text-dark);
+    user-select: none;
+    font-size: 0.95rem;
+    transition: color 0.2s;
+}
+
+.custom-checkbox:hover, .custom-radio:hover {
+    color: var(--primary-blue);
+}
+
+.custom-checkbox input, .custom-radio input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark, .radiomark {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    height: 22px;
+    width: 22px;
+    background-color: var(--white);
+    border: 2px solid var(--border-color);
+    transition: all 0.2s ease;
+}
+
+.checkmark {
+    border-radius: 6px;
+}
+
+.radiomark {
+    border-radius: 50%;
+}
+
+.custom-checkbox:hover input ~ .checkmark,
+.custom-radio:hover input ~ .radiomark {
+    border-color: var(--secondary-blue);
+    background-color: var(--light-blue);
+}
+
+.custom-checkbox input:checked ~ .checkmark,
+.custom-radio input:checked ~ .radiomark {
+    background-color: var(--primary-blue);
+    border-color: var(--primary-blue);
+}
+
+.checkmark:after, .radiomark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.custom-checkbox input:checked ~ .checkmark:after,
+.custom-radio input:checked ~ .radiomark:after {
+    display: block;
+}
+
+.custom-checkbox .checkmark:after {
+    left: 6px;
+    top: 2px;
+    width: 6px;
+    height: 12px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.custom-radio .radiomark:after {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: white;
+}
+
+/* Button Groups */
+.btn-group {
+    display: flex;
+    margin-top: 30px;
+    gap: 15px;
+}
+
+.btn-group.right {
+    justify-content: flex-end;
+}
+
+.btn-group.split {
+    justify-content: space-between;
+}
+
+button[type="button"].btn-next,
+button[type="button"].btn-prev,
+button[type="submit"] {
+    padding: 14px 24px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+button.btn-next, button[type="submit"] {
+    background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+    color: white;
+    box-shadow: 0 4px 15px rgba(26, 75, 130, 0.2);
+    flex: 1;
+}
+
+button.btn-next:hover, button[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(26, 75, 130, 0.3);
+}
+
+button.btn-prev.btn-secondary {
+    background-color: var(--light-blue);
+    color: var(--primary-blue);
+    flex: 0 0 auto;
+}
+
+button.btn-prev.btn-secondary:hover {
+    background-color: #D1E1F0;
+}
+
+/* Loader */
+.loader {
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255,255,255,0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s ease-in-out infinite;
+    margin-left: 10px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Modal Estilos */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(26, 75, 130, 0.4);
+    backdrop-filter: blur(4px);
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal.show {
+    display: flex;
+    opacity: 1;
+}
+
+.modal-content {
+    background-color: var(--white);
+    padding: 40px;
+    border-radius: 16px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.modal.show .modal-content {
+    transform: scale(1);
+}
+
+.success-icon {
+    width: 60px;
+    height: 60px;
+    background-color: var(--success-color);
+    color: white;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+}
+
+.modal h2 {
+    color: var(--primary-blue);
+    margin-bottom: 10px;
+}
+
+.modal p {
+    color: var(--text-muted);
+    margin-bottom: 25px;
+}
+
+.close-btn {
+    background-color: var(--light-blue);
+    color: var(--primary-blue);
+    border: none;
+    padding: 10px 25px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.close-btn:hover {
+    background-color: #D1E1F0;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .container {
+        padding: 30px 20px;
+    }
+    
+    h1 {
+        font-size: 1.4rem;
+    }
+    
+    .btn-group {
+        flex-direction: column-reverse;
+    }
+    
+    button.btn-prev.btn-secondary {
+        width: 100%;
+    }
+}
