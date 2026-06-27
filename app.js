@@ -7,6 +7,61 @@ const progressSteps = document.querySelectorAll('.progress-step');
 const nextBtns = document.querySelectorAll('.btn-next');
 const prevBtns = document.querySelectorAll('.btn-prev');
 let currentStep = 0;
+let locationsData = {}; // Para guardar departamentos y municipios
+
+// Cargar Departamentos y Municipios al inicio
+document.addEventListener('DOMContentLoaded', () => {
+    fetch('https://raw.githubusercontent.com/marcovega/colombia-json/master/colombia.min.json')
+        .then(response => response.json())
+        .then(data => {
+            const deptoSelect = document.getElementById('departamento');
+            
+            // Llenar locationsData
+            data.forEach(item => {
+                locationsData[item.departamento] = item.ciudades;
+            });
+
+            // Ordenar departamentos alfabéticamente
+            const departamentos = Object.keys(locationsData).sort();
+            
+            // Llenar select
+            deptoSelect.innerHTML = '<option value="">Selecciona un departamento...</option>';
+            departamentos.forEach(depto => {
+                const option = document.createElement('option');
+                option.value = depto;
+                option.textContent = depto;
+                deptoSelect.appendChild(option);
+            });
+        })
+        .catch(err => {
+            console.error('Error cargando municipios:', err);
+            const deptoSelect = document.getElementById('departamento');
+            deptoSelect.innerHTML = '<option value="">Prueba desde el link de GitHub para ver la lista.</option>';
+        });
+});
+
+// Evento cuando cambia el departamento
+document.getElementById('departamento').addEventListener('change', function() {
+    const muniSelect = document.getElementById('municipio');
+    const deptoSeleccionado = this.value;
+
+    if (deptoSeleccionado && locationsData[deptoSeleccionado]) {
+        // Ordenar municipios alfabéticamente
+        const municipios = locationsData[deptoSeleccionado].sort();
+        
+        muniSelect.innerHTML = '<option value="">Selecciona un municipio o ciudad...</option>';
+        municipios.forEach(muni => {
+            const option = document.createElement('option');
+            option.value = muni;
+            option.textContent = muni;
+            muniSelect.appendChild(option);
+        });
+        muniSelect.disabled = false;
+    } else {
+        muniSelect.innerHTML = '<option value="">Primero selecciona un departamento...</option>';
+        muniSelect.disabled = true;
+    }
+});
 
 // Navegación Siguiente
 nextBtns.forEach(btn => {
@@ -74,9 +129,9 @@ function validateStep(stepIndex) {
         }
     }
 
-    // Validar en el Paso 3 (índice 2): Nombre y Celular
+    // Validar en el Paso 3 (índice 2): Nombre, Celular, Depto, Municipio
     if (stepIndex === 2) {
-        const inputs = currentFormStep.querySelectorAll('input[required]');
+        const inputs = currentFormStep.querySelectorAll('input[required], select[required]');
         inputs.forEach(input => {
             if (!input.value.trim()) {
                 isValid = false;
@@ -86,7 +141,7 @@ function validateStep(stepIndex) {
             }
         });
         if (!isValid) {
-            alert("Por favor completa los campos requeridos (Nombre y Celular).");
+            alert("Por favor completa todos los datos requeridos para poder contactarte.");
         }
     }
 
@@ -113,6 +168,8 @@ form.addEventListener('submit', e => {
     dataToSend.append('correccion', formData.get('correccion'));
     dataToSend.append('tiempo', formData.get('tiempo'));
     dataToSend.append('expectativa', formData.get('expectativa'));
+    dataToSend.append('departamento', formData.get('departamento'));
+    dataToSend.append('municipio', formData.get('municipio'));
 
     btnText.textContent = 'Enviando...';
     loader.style.display = 'block';
@@ -134,8 +191,11 @@ form.addEventListener('submit', e => {
         currentStep = 0;
         updateFormSteps();
         updateProgressBar();
+        // Limpiar select de municipio
+        document.getElementById('municipio').innerHTML = '<option value="">Primero selecciona un departamento...</option>';
+        document.getElementById('municipio').disabled = true;
         // Limpiar bordes de error si quedaron
-        document.querySelectorAll('input').forEach(i => i.style.borderColor = 'var(--border-color)');
+        document.querySelectorAll('input, select').forEach(i => i.style.borderColor = 'var(--border-color)');
     })
     .catch(error => {
         console.error('Error!', error.message);
